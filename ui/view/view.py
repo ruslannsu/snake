@@ -1,23 +1,14 @@
-import arcade
-import arcade.gui
-class View(arcade.Window): 
-    def __init__(self, width: int, height: int) -> None:
-        super().__init__(width=width, height=height)
+from view.game_screen import GameScreen
+from view.start_screen import StartScreen
+
+
+class View: 
+    def __init__(self, game_screen: GameScreen, start_screen: StartScreen) -> None:
+        self._start_screen = start_screen
+        self._game_screen = game_screen
         
-
-   
         
-
-    def _setup_start_screen(self) -> None:
-        arcade.set_background_color(color=arcade.color.RED)
-
-    def setup(self):
-        self._setup_start_screen()
- 
-    def on_key_press(self, symbol: int, modifiers: int) -> None:
-        print(symbol)
-
-    
+        
 
 
 
