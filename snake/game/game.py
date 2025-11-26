@@ -1,14 +1,21 @@
 import socket
 from snake.roles.base import BaseRole
 import struct
-from ui.controller.controller import C
-
+from ui.controller.controller import Controller
+from ui.view.view import View
+from ui.model.model import Model
 class Game:
     def __init__(self) -> None:
         self._unicast_socket = self._create_unicast_socket()
         self._id = '43'
         self._role = None
         self._multicast_group = ('a1', 1)
+    
+        self._view = View()
+        self._model = Model()
+
+        self._controller = Controller(view=self._view, model=self._model)
+
         
     
     def _create_unicast_socket(self):
@@ -24,4 +31,4 @@ class Game:
         
         return udp_socket
     
-    def _create
+  

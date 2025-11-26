@@ -1,13 +1,13 @@
-from view.game_screen import GameScreen
-from view.start_screen import StartScreen
+from ui.view.game_screen import GameScreen
+from ui.view.start_screen import StartScreen
 
 
 class View: 
-    def __init__(self, game_screen: GameScreen, start_screen: StartScreen) -> None:
-        self._start_screen = start_screen
-        self._game_screen = game_screen
+    def __init__(self) -> None:
+        self._start_screen = StartScreen('Snake', 300, 300)
+        self._game_screen = GameScreen(100, 100)
         
-        
+
         
 
 
