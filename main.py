@@ -1,11 +1,12 @@
 import arcade
-from ui.view.view import View
 from ui.view.start_screen import StartScreen
 from PyQt6.QtWidgets import QApplication
+from snake.game.game import Game
 
 def main():
     app = QApplication([])
-    v = StartScreen('Snake', 500, 500)
+    game = Game()
+    
     
     app.exec()
     

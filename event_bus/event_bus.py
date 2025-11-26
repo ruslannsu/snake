@@ -7,6 +7,8 @@ class EventBus:
     def subscribe(self, event_name: str, handler: Callable) -> None:
         self._handlers[event_name] = handler
 
-    def notify(self, event_name: str, args: tuple):
+    def notify(self, *args, event_name: str):
         func = self._handlers[event_name]
-        func(args)
+        func(*args)
+
+event_bus = EventBus()
