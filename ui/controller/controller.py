@@ -1,7 +1,6 @@
 from ui.model.model import Model
 from ui.view.view import View
 from ui.view.game_screen import GameScreen
-
 from snake.game.listener import GameListener
 from snake.game.sender import GameSender
 from event_bus.event_bus import event_bus
@@ -41,16 +40,20 @@ class Controller:
         
         self._game_role = Roles.MASTER
 
-        self._game_sender._message = self._proto_messages.create_announcement_message(game_name='random', can_join=True, 
+        self._game_sender._message = self._proto_messages.create_announcement_message(game_name='----',
+                                                                                       can_join=True, 
                                                                                        width=self._game_config.field_width,
                                                                                        height=self._game_config.field_height,
                                                                                        food_static=self._game_config.food_static,
                                                                                         delay=self._game_config.delay, player_score=0, 
-                              
-                                                                                       player_role=Roles.MASTER, player_id=123, player_name='user1') 
+                                                                                       player_role=Roles.MASTER, 
+                                                                                       player_id=123, player_name='user1') 
         self._game_sender.start()
         self._view._start_screen.close()
-        self._view._game_screen = GameScreen(sidebar_width=self._game_config.sidebar_width, screen_height=self._game_config.field_height, screen_width=self._game_config.field_width, grid_size=self._game_config.grid_size)
+        self._view._game_screen = GameScreen(sidebar_width=self._game_config.sidebar_width,
+                                              screen_height=self._game_config.field_height,
+                                                screen_width=self._game_config.field_width,
+                                                  grid_size=self._game_config.grid_size)
     
     def _set_default_role(self):
         self._game_role = Roles.DEFAULT

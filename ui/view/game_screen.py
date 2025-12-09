@@ -1,8 +1,6 @@
 from typing import List, Tuple
 import arcade
 
-
-
 class GameScreen(arcade.Window):
     def __init__(self, screen_width, screen_height, sidebar_width, grid_size) -> None:
         super().__init__(width=screen_width, height=screen_height, title="Змейка")

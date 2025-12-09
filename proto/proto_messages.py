@@ -30,7 +30,7 @@ class ProtoMessages:
         player.role = snakes_pb2.MASTER
         player.score = player_score
         return msg.SerializeToString()
-   
+
     def get_game_name(self, message):
         return message.announcement.games[0].game_name
 

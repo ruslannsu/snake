@@ -10,6 +10,8 @@ import threading
 import uuid
 import yaml
 
+from random import randint
+
 class Game:
     def __init__(self) -> None:
         self._id = uuid.uuid4()
@@ -34,8 +36,11 @@ class Game:
         multicast_group = ('239.192.0.4', 9192)
         self._multicast_socket = self._create_multicast_socket(multicast_group=multicast_group)
 
+        port = randint(9000, 10000)
+        self._unicast_socket = self._create_unicast_socket(port=port)
+
         game_listener = GameListener(multicast_socket=self._multicast_socket)
-        game_sender = GameSender(multicast_socket=self._multicast_socket)
+        game_sender = GameSender(multicast_socket=self._unicast_socket)
 
         self._view = View()
         self._model = Model(1, 2)
@@ -59,3 +64,10 @@ class Game:
         
         return udp_socket
     
+
+    def _create_unicast_socket(self, port: int):
+        udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
+        udp_socket.bind(('', port))
+        return udp_socket
+        
+        
