@@ -43,6 +43,7 @@ class StartScreen(QMainWindow):
     
     def _set_game_list(self, text: str):
         self._game_list.setText(text)
+        
     
         
 

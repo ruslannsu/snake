@@ -21,11 +21,15 @@ class Game:
         self._field_height = self._config['game_params']['game_field_height'] 
         self._food_static = self._config['game_params']['food_static']
         self._delay = self._config['game_params']['delay']
+        self._sidebar_width = self._config['game_params']['sidebar_width']
+        self._grid_size = self._config['game_params']['grid_size']
+
 
         self._game_config = GameConfig(field_height=self._config['game_params']['game_field_width'],
                                         food_static=self._config['game_params']['food_static'],
                                           delay=self._config['game_params']['delay'],
-                                            field_width= self._config['game_params']['game_field_width'])
+                                            field_width= self._config['game_params']['game_field_width'],
+                                            sidebar_width=self._sidebar_width, grid_size=self._grid_size)
 
         multicast_group = ('239.192.0.4', 9192)
         self._multicast_socket = self._create_multicast_socket(multicast_group=multicast_group)
@@ -34,7 +38,7 @@ class Game:
         game_sender = GameSender(multicast_socket=self._multicast_socket)
 
         self._view = View()
-        self._model = Model()
+        self._model = Model(1, 2)
 
         self._controller = Controller(view=self._view, model=self._model, game_listener=game_listener,
                                        game_sender=game_sender, game_config=self._game_config)

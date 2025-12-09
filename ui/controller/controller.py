@@ -1,5 +1,6 @@
 from ui.model.model import Model
 from ui.view.view import View
+from ui.view.game_screen import GameScreen
 
 from snake.game.listener import GameListener
 from snake.game.sender import GameSender
@@ -11,19 +12,17 @@ from proto.proto_messages import ProtoMessages
 class Controller:
     def __init__(self, view: View, model: Model, game_listener: GameListener, game_sender: GameSender, game_config: GameConfig) -> None:
         self._view = view
-        self._model = model
         self._game_role = None
         self._game_listener = game_listener
         game_listener.start()
+
         self._game_config = game_config
-
+        
         self._proto_messages = ProtoMessages()
-
         self._game_sender = game_sender
         
         event_bus.subscribe(event_name="start_game", handler=self._set_master_role)
         event_bus.subscribe(event_name='get_announcement', handler=self._update_game_list)
-
 
     def _update_game_list(self):
         if self._game_role == None:
@@ -32,7 +31,7 @@ class Controller:
 
             for msg in messages:
                 game_name = self._proto_messages.get_game_name(msg)
-                game_list += str(game_name)
+                game_list += ('1' + str(game_name) + '\n') 
             
 
             self._view._start_screen._set_game_list(game_list)
@@ -50,6 +49,8 @@ class Controller:
                               
                                                                                        player_role=Roles.MASTER, player_id=123, player_name='user1') 
         self._game_sender.start()
+        self._view._start_screen.close()
+        self._view._game_screen = GameScreen(sidebar_width=self._game_config.sidebar_width, screen_height=self._game_config.field_height, screen_width=self._game_config.field_width, grid_size=self._game_config.grid_size)
     
     def _set_default_role(self):
         self._game_role = Roles.DEFAULT

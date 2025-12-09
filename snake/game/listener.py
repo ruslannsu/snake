@@ -21,11 +21,12 @@ class GameListener(threading.Thread):
 
     def run(self) -> None:
         while True:
+            self._messages.clear()
             buf, addr = self._multicast_socket.recvfrom(1024)
             self._messages.append(self._proto_messages.deserialize(buf))
             time.sleep(5)
             event_bus.notify(event_name='get_announcement')
-
+            
             print(buf, addr)
             
     
