@@ -40,7 +40,9 @@ class StartScreen(QMainWindow):
 
     def _start_game_button_notify(self):
         event_bus.notify(event_name='start_game')
-        
-        
+    
+    def _set_game_list(self, text: str):
+        self._game_list.setText(text)
+    
         
 
